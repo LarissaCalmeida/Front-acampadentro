@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { ehMenorDeIdade, ehMenorQue14, maskPhone } from "@/lib/utils";
+import { Loader2, MessageCircleWarning, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Head from "next/head";
@@ -33,25 +34,38 @@ export default function Home() {
   } = useForm();
   const [isAMinor, setIsAMinor] = useState(false);
   const [isAMinor14, setIsAMinor14] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [watchHaveAllergies, watchMedicationUse, watchMedicalCondition] = watch(
     ["haveAllergies", "medicationUse", "medicalCondition"]
   );
 
   const onSubmit = async (data) => {
-    await fetch("/api/subscribes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    console.log(data);
-    toast("Inscrição realizada com sucesso.", {});
-    reset();
+    setIsLoading(true);
+
+    try {
+      await fetch("/api/subscribes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      console.log(data);
+      toast("Inscrição realizada com sucesso.", {
+        icon: <Check className="text-green-400" />,
+      });
+      reset();
+    } catch (error) {
+      toast("Erro ao realizar inscrição.", {
+        icon: <MessageCircleWarning className="text-red-600" />,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div>
-      <header className="bg-[url(/florest2.png)] bg-[#2A553B]  bg-contain bg-bottom bg-no-repeat min-w-full min-h-screen flex flex-col items-center p-9">
+      <header className="bg-[url(/florest2.png)] bg-[#2A553B]  bg-contain bg-bottom bg-no-repeat min-w-full min-h-screen flex flex-col items-center lg:p-9 p-5">
         <Head>
           <title>Acampadentro 2025 - Ficha de Inscrição</title>
         </Head>
@@ -91,7 +105,7 @@ export default function Home() {
         </div>
 
         <form
-          className="bg-white rounded-md max-w-5xl p-9 mt-9 shadow-md"
+          className="bg-white rounded-md max-w-5xl lg:p-9 p-5 mt-9 shadow-md"
           onSubmit={handleSubmit(onSubmit)}
         >
           <h3 className="font-bold text-xl text-gray-800">
@@ -141,6 +155,7 @@ export default function Home() {
                       message: "O Acampante dever ser maior que 14 anos :(",
                     });
                   } else {
+                    setIsAMinor14(false);
                     clearErrors("birthdate");
                   }
                 }}
@@ -470,7 +485,7 @@ export default function Home() {
           </div>
 
           <h3 className="font-bold text-xl text-gray-800 mt-9">
-            Declaração final
+            Declaração Final
           </h3>
           <hr></hr>
 
@@ -498,10 +513,17 @@ export default function Home() {
           </div>
 
           <button
-            className={`${poppins.className} py-2 px-4 bg-[#D06335] text-md font-bold uppercase text-white rounded-sm mt-9 float-right cursor-pointer disabled:bg-gray-500 disabled:cursor-default`}
-            disabled={isAMinor14}
+            className={`${poppins.className} py-2 px-4 md:w-max w-full bg-[#D06335] hover:bg-[#a74f2a] text-md font-bold uppercase text-white rounded-sm mt-9 float-right cursor-pointer disabled:bg-gray-500 disabled:cursor-default flex gap-2`}
+            disabled={isAMinor14 || isLoading}
           >
-            Finalizar inscrição
+            {isLoading ? (
+              <>
+                <span>Finalizando</span>
+                <Loader2 className="animate-spin" />
+              </>
+            ) : (
+              "Finalizar inscrição"
+            )}
           </button>
         </form>
       </header>
