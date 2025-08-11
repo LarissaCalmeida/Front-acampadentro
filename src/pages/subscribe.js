@@ -5,11 +5,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { ehMenorDeIdade, ehMenorQue14, maskPhone } from "@/lib/utils";
+import { ehMenorDeIdade, ehMenorQue12, maskPhone } from "@/lib/utils";
 import { Loader2, MessageCircleWarning, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Head from "next/head";
+import SuccessModal from "@/components/success-modal-subscribe";
 
 const archivoBlack = Archivo_Black({
   subsets: ["latin"],
@@ -33,8 +34,9 @@ export default function Home() {
     reset,
   } = useForm();
   const [isAMinor, setIsAMinor] = useState(false);
-  const [isAMinor14, setIsAMinor14] = useState(false);
+  const [isAMinor12, setIsAMinor12] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const [watchHaveAllergies, watchMedicationUse, watchMedicalCondition] = watch(
     ["haveAllergies", "medicationUse", "medicalCondition"]
@@ -50,6 +52,7 @@ export default function Home() {
         body: JSON.stringify(data),
       });
       console.log(data);
+      setIsOpenModal(true);
       toast("Inscrição realizada com sucesso.", {
         icon: <Check className="text-green-400" />,
       });
@@ -74,7 +77,7 @@ export default function Home() {
           Inscrição para o Acampadentro 2025
         </h1>
         <p className="text-[#DEC489] text-sm">
-          Só é permitido Acampantes maiores de 14 anos.
+          Só é permitido Acampantes maiores de 12 anos.
         </p>
 
         <div className="bg-[#D06335] rounded-md p-5 mt-9 max-w-5xl">
@@ -94,7 +97,8 @@ export default function Home() {
           </p>
 
           <p className={`${poppins.className} text-sm text-[#E4D2C8] mt-2`}>
-            <b>Chave PIX:</b> (XX) - xxxxx-xxxx
+            <b>Chave PIX:</b> 069.712.205-01 <br />
+            <b>Nome: </b> Beatriz Bispo
           </p>
 
           <p className={`${poppins.className} text-sm text-[#E4D2C8] mt-2`}>
@@ -149,13 +153,13 @@ export default function Home() {
                 onChange={(e) => {
                   setIsAMinor(ehMenorDeIdade(e.target.value));
 
-                  if (ehMenorQue14(e.target.value)) {
-                    setIsAMinor14(true);
+                  if (ehMenorQue12(e.target.value)) {
+                    setIsAMinor12(true);
                     setError("birthdate", {
-                      message: "O Acampante dever ser maior que 14 anos :(",
+                      message: "O Acampante dever ser maior que 12 anos :(",
                     });
                   } else {
-                    setIsAMinor14(false);
+                    setIsAMinor12(false);
                     clearErrors("birthdate");
                   }
                 }}
@@ -513,8 +517,8 @@ export default function Home() {
           </div>
 
           <button
-            className={`${poppins.className} py-2 px-4 md:w-max w-full bg-[#D06335] hover:bg-[#a74f2a] text-md font-bold uppercase text-white rounded-sm mt-9 float-right cursor-pointer disabled:bg-gray-500 disabled:cursor-default flex gap-2`}
-            disabled={isAMinor14 || isLoading}
+            className={`${poppins.className} py-2 px-4 md:w-max w-full bg-[#D06335] hover:bg-[#a74f2a] text-md font-bold uppercase text-white rounded-sm mt-9 float-right cursor-pointer disabled:bg-gray-500 disabled:cursor-default flex items-center justify-center gap-2`}
+            disabled={isAMinor12 || isLoading}
           >
             {isLoading ? (
               <>
@@ -535,6 +539,15 @@ export default function Home() {
           Desenvolvido por <b>Larissa Carvalho</b> com 💚 e muito ☕
         </p>
       </footer>
+
+      <SuccessModal
+        isOpen={isOpenModal}
+        onClose={() => {
+          setIsOpenModal(false);
+        }}
+        pixCode={"069.712.205-01"}
+        qrCodeImage={"/qrcode-pix.png"}
+      />
     </div>
   );
 }

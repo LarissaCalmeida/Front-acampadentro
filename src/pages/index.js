@@ -38,7 +38,7 @@ export default function Home() {
       <Head>
         <title>Acampadentro 2025</title>
       </Head>
-      <header className="bg-[url(/background.webp)] bg-cover bg-no-repeat min-w-full min-h-screen flex items-center justify-center p-9">
+      <header className="bg-[url(/background.webp)] bg-cover  bg-no-repeat min-w-full min-h-screen flex items-center justify-center p-9">
         <div className="lg:grid grid-cols-4">
           <div className="col-span-2">
             <img src={"/title.webp"} />
@@ -95,13 +95,13 @@ export default function Home() {
             </h2>
 
             <ul className="mt-9 flex flex-col gap-4">
-              <li className={`${poppins.className} flex items-center gap-2`}>
+              <li className={`${poppins.className} flex items-start gap-2`}>
                 <span className=" min-w-[32px] h-[32px] font-bold rounded-sm bg-[#D06335] text-[#E4D2C8] flex items-center justify-center">
                   1
                 </span>
 
                 <p className="text-[#DEC489]">
-                  Clique no botão <b>Inscreva-se</b> agora ou{" "}
+                  Clique no botão <b>Inscreva-se agora</b> ou{" "}
                   <Link href="/subscribe" className="underline">
                     clique aqui
                   </Link>{" "}
@@ -109,35 +109,37 @@ export default function Home() {
                 </p>
               </li>
 
-              <li className={`${poppins.className} flex items-center gap-2`}>
+              <li className={`${poppins.className} flex items-start gap-2`}>
                 <span className="min-w-[32px] h-[32px] font-bold rounded-sm bg-[#D06335] text-[#E4D2C8] flex items-center justify-center">
                   2
                 </span>
 
                 <p className="text-[#DEC489]">
                   Preencha todo o formulário. Mas fique atento(a), o Acampante
-                  terá que ser maior de 15 anos.
+                  terá que ser maior de 12 anos.
                 </p>
               </li>
 
-              <li className={`${poppins.className} flex items-center gap-2`}>
+              <li className={`${poppins.className} flex items-start gap-2`}>
                 <span className="min-w-[32px] h-[32px] font-bold rounded-sm bg-[#D06335] text-[#E4D2C8] flex items-center justify-center">
                   3
                 </span>
 
                 <p className="text-[#DEC489]">
-                  Ao finalizar pague a taxa de inscrição até o dia 20, Você pode
-                  optar por PIX ou entregar o pagamento pessoalmente.
+                  Ao finalizar pague a taxa de inscrição até o dia 17. Você pode
+                  optar por PIX ou entregar o pagamento pessoalmente a um dos
+                  Líderes da Juventude.
                 </p>
               </li>
 
-              <li className={`${poppins.className} flex items-center gap-2`}>
+              <li className={`${poppins.className} flex items-start gap-2`}>
                 <span className="min-w-[32px] h-[32px] font-bold rounded-sm bg-[#D06335] text-[#E4D2C8] flex items-center justify-center">
                   4
                 </span>
 
                 <p className="text-[#DEC489]">
-                  <b>Chave PIX:</b> (xx) xxxxx-xxxx
+                  <b>Chave PIX:</b> 069.712.205-01 <br />
+                  <b>Nome: </b> Beatriz Bispo
                 </p>
               </li>
             </ul>

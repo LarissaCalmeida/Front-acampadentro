@@ -37,7 +37,7 @@ export function ehMenorDeIdade(dataNascimento) {
   return idade < 18;
 }
 
-export function ehMenorQue14(dataNascimento) {
+export function ehMenorQue12(dataNascimento) {
   const nascimento = new Date(dataNascimento);
   const hoje = new Date();
 
