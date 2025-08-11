@@ -1,16 +1,16 @@
-import Image from "next/image";
-import { Archivo_Black, Poppins } from "next/font/google";
-import { useForm } from "react-hook-form";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import SuccessModal from "@/components/success-modal-subscribe";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ehMenorDeIdade, ehMenorQue12, maskPhone } from "@/lib/utils";
-import { Loader2, MessageCircleWarning, Check } from "lucide-react";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { Check, Loader2, MessageCircleWarning } from "lucide-react";
+import { Archivo_Black, Poppins } from "next/font/google";
 import Head from "next/head";
-import SuccessModal from "@/components/success-modal-subscribe";
+import Link from "next/link";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const archivoBlack = Archivo_Black({
   subsets: ["latin"],
@@ -536,7 +536,18 @@ export default function Home() {
         className={`${poppins.className} bg-[#1F201F] text-[#DEC489] p-5`}
       >
         <p className="text-center">
-          Desenvolvido por <b>Larissa Carvalho</b> com 💚 e muito ☕
+          Desenvolvido por{" "}
+          <b>
+            <Link
+              href="https://portfolio-larissa-carvalhos-projects.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block  text-white  rounded-lg "
+            >
+              Larissa Carvalho
+            </Link>
+          </b>{" "}
+          com 💚 e muito ☕
         </p>
       </footer>
 
