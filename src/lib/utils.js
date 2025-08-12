@@ -50,5 +50,5 @@ export function ehMenorQue12(dataNascimento) {
       ? 1
       : 0);
 
-  return idade < 14;
+  return idade < 12;
 }
